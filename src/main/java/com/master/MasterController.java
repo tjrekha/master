@@ -20,12 +20,13 @@ public class MasterController {
 	@GetMapping("/books")
 	public ResponseEntity<String> getBooks(HttpServletRequest request) {
 		 String httpUser = request.getHeader("Http-User");
+		 System.out.println("Request Received for the User"+httpUser);
 		 String uri = "http://localhost:8888/books";
 		 ResponseEntity<String> response = null;
 		 RestTemplate restTemplate = new RestTemplate();
 		 try {
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.add("Http-User","TEST");
+	        headers.add("Http-User",httpUser);
 	        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 	        response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
 	        LOG.debug("Result - status ("+ response.getStatusCode() + ") has body: " + response.hasBody());
